@@ -158,6 +158,10 @@ function unitCosts(int $unitAmount, float $electricityBill)
         <div class="imgContainer">
             <img src="images/vecteezy_blue-energy-thunder-lightning-bolt-symbol-or-electricity_20785841_185.png" alt="">
         </div>
+        <h1>The Greenest Choice</h1>
+        <div class="imgContainer">
+            <img src="images/vecteezy_blue-energy-thunder-lightning-bolt-symbol-or-electricity_20785841_185.png" alt="">
+        </div>
     </header>
 
     <nav class="navigation">
@@ -171,7 +175,7 @@ function unitCosts(int $unitAmount, float $electricityBill)
     </nav>
 
     <div class="content">
-        <h1>Calculate your electricity bill</h1>
+        <h1>Calculate your electricity bill:</h1>
         <div>
             <form method="post">
                 <input name="units" id="units"></input>
