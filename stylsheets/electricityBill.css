@@ -1,0 +1,107 @@
+/* Colors:
+main color: #C3EDC0
+banner color: #AAC8A7
+border color: #79AC78
+text color: #555843
+link color hover: #618264*/
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    background-image: url("images/green-grass-turf-blue-sky-background_493806-4413.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 80px 1fr 60px;
+    grid-template-areas:
+        "header header header header header header header header header header header header"
+        "nav nav content content content content content content content content content content"
+        "footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    grid-area: header;
+    border-bottom: solid 1px #79AC78;
+    padding: 10px 0;
+    color: #555843;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+.imgContainer {
+    width: 69px;
+    margin: 0 79px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    height: 60px;
+    background-color: #79AC78;
+    border-radius: 50%;
+}
+
+.navigation {
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+    background-color: #C3EDC0;
+    border-right: solid 1px #79AC78;
+}
+
+.placeholder {
+    flex-grow: 1;
+}
+
+ul {
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 30px;
+}
+
+li {
+    list-style: none;
+    font-size: 1.2rem;
+}
+
+a {
+    text-decoration: none;
+}
+a:link, a:visited
+{
+    color: #555843;
+}
+a:hover
+{
+    color: #79AC78;
+    text-decoration: underline;
+}
+
+.content {
+    grid-area: content;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #C3EDC0;
+    color: #555843;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: transparent;
+    border-top: solid 1px #79AC78;
+}
