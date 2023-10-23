@@ -1,11 +1,7 @@
 <?php
 
 $electricityBill = 0;
-
-function addAmount($currentAmount, $addAmount)
-{
-    return $currentAmount + $addAmount;
-}
+$costArr = [3.50, 4.00, 5.20, 6.50];
 
 function multiplyElectricityCosts(int $units, float $pricePerUnit): float
 {
@@ -17,113 +13,55 @@ function leftoverUnitAmount(int $unitAmount, $units): int
     $leftOverUnitAmount = $unitAmount - $units;
     return $leftOverUnitAmount;
 }
-// function en array maken electricityunticosts naam weizigen unitcosts zijn hardcoded
-function unitCosts(int $unitAmount, float $electricityBill)
+function unitCosts(int $unitAmount, float $electricityBill, $costArr)
 {
-    for ($i = 1; $i <= 4; $i++) {
-        if ($i == 1) {
+    // Om de code te optimaliseren zouden wij de gedupliceerde code
+    // zoals: "$electricityBill = $electricityBill + multiplyElectricityCosts(50, $costArr[$i]);"
+    // in een eigen functie zetten.
+    // die functie addCostsToElectricityBill($unitamount, $costArr[$i])
+    // zou 2 parameters mee krijgen: de hoeveelheid units en de index van de kosten array.
+    // met die 2 parameters kan de functie uitrekenen hoeveel die units bij elkaar kosten
+    // en ze toevoegen aan de electriciteit factuur.
+    // ook zou deze functie de leftover units uitrekenen.
+    // op deze manier zouden wij deze huiidige functie met 13 regels optimaliseren.
+    
+    for ($i = 0; $i < 4; $i++) {
+        if ($i == 0) {
             if ($unitAmount >= 50) {
-                $electricityBill = $electricityBill + multiplyElectricityCosts(50, 3.50);
+                $electricityBill = $electricityBill + multiplyElectricityCosts(50, $costArr[$i]);
                 $unitAmount = leftoverUnitAmount($unitAmount, 50);
             } else {
-                $electricityBill = $electricityBill + ($unitAmount * 3.50);
+                $electricityBill = $electricityBill + ($unitAmount * $costArr[$i]);
+                $unitAmount = leftoverUnitAmount($unitAmount, $unitAmount);
+            }
+        }
+        if ($i == 1) {
+            if ($unitAmount >= 100) {
+                $electricityBill = $electricityBill + multiplyElectricityCosts(100, $costArr[$i]);
+                $unitAmount = leftoverUnitAmount($unitAmount, 100);
+            } elseif ($unitAmount != 0) {
+                $electricityBill = $electricityBill + ($unitAmount * $costArr[$i]);
                 $unitAmount = leftoverUnitAmount($unitAmount, $unitAmount);
             }
         }
         if ($i == 2) {
             if ($unitAmount >= 100) {
-                $electricityBill = $electricityBill + multiplyElectricityCosts(100, 4.00);
+                $electricityBill = $electricityBill + multiplyElectricityCosts(100, $costArr[$i]);
                 $unitAmount = leftoverUnitAmount($unitAmount, 100);
             } elseif ($unitAmount != 0) {
-                $electricityBill = $electricityBill + ($unitAmount * 4.00);
+                $electricityBill = $electricityBill + ($unitAmount * $costArr[$i]);
                 $unitAmount = leftoverUnitAmount($unitAmount, $unitAmount);
             }
         }
         if ($i == 3) {
-            if ($unitAmount >= 100) {
-                $electricityBill = $electricityBill + multiplyElectricityCosts(100, 5.20);
-                $unitAmount = leftoverUnitAmount($unitAmount, 100);
-            } elseif ($unitAmount != 0) {
-                $electricityBill = $electricityBill + ($unitAmount * 5.20);
-                $unitAmount = leftoverUnitAmount($unitAmount, $unitAmount);
-            }
-        }
-        if ($i == 4) {
             if ($unitAmount != 0) {
-                $electricityBill = $electricityBill + multiplyElectricityCosts($unitAmount, 6.50);
+                $electricityBill = $electricityBill + multiplyElectricityCosts($unitAmount, $costArr[$i]);
             }
         }
     }
 
-    // for ($i=1; $i <= $unitAmount; $i++) { 
-    //     if ($i <= 50) 
-    //     {
-    //         $electricityBill = $electricityBill + 3.50;
-
-    //         // echo $i ." " ;
-    //         // echo $electricityBill ." " ."<br>" ;
-    //     } 
-    //     if ($i > 50 && $i <= 150) { 
-    //         $electricityBill = $electricityBill + 4.00;
-
-    //     }
-    //     if ($i > 150 && $i <= 250) {
-    //         $electricityBill = $electricityBill + 5.20;
-
-    //     }
-    //     if ( $i > 250) {
-    //         $electricityBill = $electricityBill + 6.50;
-
-    //     }
-    // }
-
-    // if($unitAmount > 250 )
-    // {
-    //     $unitAmount = $unitAmount - 250;
-    //     $tier0 = (50 * 3.50);
-    //     $tier1 = (100 * 4.00);
-    //     $tier2 = (100 * 5.20);
-    //     $tier3 = ($unitAmount * 6.50);
-    //     $electricityBill = $tier0+$tier1+$tier2+$tier3;
-    // }
-    // elseif ($unitAmount > 150) {
-    //     $unitAmount = $unitAmount - 150;
-    //     $tier0 = (50 * 3.50);
-    //     $tier1 = (100 * 4.00);
-    //     $tier2 = ($unitAmount * 5.20);
-    //     $electricityBill = $tier0+$tier1+$tier2;
-    // }
-    // elseif ($unitAmount > 50) {
-    //     $unitAmount = $unitAmount - 50;
-    //     $tier0 = (50 * 3.50);
-    //     $tier1 = ($unitAmount * 4.00);
-    //     $electricityBill = $tier0+$tier1;
-    // }
-    // else{
-    //     $tier0 = ($unitAmount * 3.50);
-    //     $electricityBill = $tier0;
-    // }
-
     return $electricityBill;
 }
-
-// {
-//     if   ($unitAmount <=50) {
-//     // echo ("Euro. 3.50/unit");
-//     $electrictyBill = $unitAmount * 3.50;
-//     return $electrictyBill;
-
-// } 
-//    elseif ($unitAmount > 50 && $unitAmount <= 150) {
-//     // echo ("Euro. 4.00/unit");
-
-// } 
-//    elseif ($unitAmount > 150 && $unitAmount <= 250) {
-//     // echo ("Euro. 5.20/unit");
-// }
-//    elseif ($unitAmount > 250) {
-//     // echo ("Euro. 6.50/unit");
-// }};
 ?>
 
 <!DOCTYPE html>
@@ -159,9 +97,7 @@ function unitCosts(int $unitAmount, float $electricityBill)
             <img src="images/vecteezy_blue-energy-thunder-lightning-bolt-symbol-or-electricity_20785841_185.png" alt="">
         </div>
         <h1>The Greenest Choice</h1>
-        <div class="imgContainer">
-            <img src="images/vecteezy_blue-energy-thunder-lightning-bolt-symbol-or-electricity_20785841_185.png" alt="">
-        </div>
+        <div class="imgContainer"></div>
     </header>
 
     <nav class="navigation">
@@ -175,23 +111,32 @@ function unitCosts(int $unitAmount, float $electricityBill)
     </nav>
 
     <div class="content">
-        <h1>Calculate your electricity bill:</h1>
-        <div>
-            <form method="post">
-                <input name="units" id="units"></input>
-                <button placeholder="Submit" type="submit">Submit</button>
-            </form>
-            <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $input = $_POST["units"];
-                if ($input != "") {
-                    $totalCosts = unitCosts($input, $electricityBill);
+        <!-- <div>
+            <p>For first 50 units – Rs. 3.50/unit
+            For next 100 units – Rs. 4.00/unit
+            For next 100 units – Rs. 5.20/unit
+            For units above 250 – Rs. 6.50/unit</p>
+        </div> -->
+        <!-- <div> -->
+            <h1>Calculate your electricity bill:</h1>
+            <div>
+                <form method="post">
+                    <input name="units" id="units"></input>
+                    <button placeholder="Submit" type="submit">Submit</button>
+                </form>
+                
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $input = $_POST["units"];
+                    if ($input != "") {
+                        $totalCosts = unitCosts($input, $electricityBill, $costArr);
+                    }
                 }
-            }
-            ?>
+                ?>
+            <!-- </div> -->
         </div>
 
-        <!-- prijzen erbij zetten -->
+
         <h1><?php echo "&#8364; " . number_format((float)$totalCosts, 2, ',', '.') ?></h1>
     </div>
 
@@ -203,7 +148,3 @@ function unitCosts(int $unitAmount, float $electricityBill)
 
 
 </html>
-
-<!-- echo "<pre>";
-        // var_dump($totalCosts);
-        // echo "</pre>"; -->
